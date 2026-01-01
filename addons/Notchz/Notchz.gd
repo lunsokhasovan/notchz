@@ -12,6 +12,7 @@ extends Control
 enum EXTERNAL_CUTOUTS_PROFILE {
 	NONE,
 	TOP_NOTCH,
+	LEFT_SIDE_NOTCH,
 }
 
 enum SET_FROM_CUTOUTS_MODE {
@@ -20,7 +21,11 @@ enum SET_FROM_CUTOUTS_MODE {
 	ALWAYS, ## Always set by automatically
 }
 ## Set offsets from cutouts by mode.
-@export var set_from_cutouts: SET_FROM_CUTOUTS_MODE = 2
+@export var set_from_cutouts: SET_FROM_CUTOUTS_MODE = 2:
+	set(x):
+		set_from_cutouts = x
+		if is_node_ready():
+			refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 @export_group("Offsets")
 
@@ -60,7 +65,11 @@ var buttom: float = 0:
 
 @export
 var external_cutouts_profile: EXTERNAL_CUTOUTS_PROFILE \
-	= EXTERNAL_CUTOUTS_PROFILE.NONE
+	= EXTERNAL_CUTOUTS_PROFILE.NONE:
+	set(x):
+		external_cutouts_profile = x
+		if is_node_ready():
+			refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 @export var custom_cutouts: Array[Rect2] = []
 
@@ -88,7 +97,7 @@ func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _ready() -> void:
-	refresh(true if set_from_cutouts > 0 else false)
+	refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warning = []
@@ -165,6 +174,17 @@ func get_external_cutout(
 				),
 				# Size
 				Vector2(notch_lenght * 3, notch_lenght)
+			)]
+		EXTERNAL_CUTOUTS_PROFILE.LEFT_SIDE_NOTCH:
+			var notch_lenght: float = DisplayServer.window_get_size().y / 20
+			return [Rect2(
+				# Position
+				Vector2(
+					0,
+					(DisplayServer.window_get_size().y - notch_lenght) / 2,
+				),
+				# Size
+				Vector2(notch_lenght, notch_lenght * 3)
 			)]
 		_:
 			return []
