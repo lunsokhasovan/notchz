@@ -1,11 +1,22 @@
-# <img src="https://github.com/lunsokhasovan/Notchz/blob/main/addons/Notchz/Notchz.svg" alt="Repository Icon" style="width:25px;height:25px;"> Notchz
+# <img src="https://github.com/lunsokhasovan/Notchz/blob/main/addons/Notchz/Notchz.svg" alt="Repository Icon" style="width:30px;height:30px;"/> Notchz
 
-Is safe area node that set offsets by member or automatic set from cutout areas to ensure fit within safe area. 
+Is safe area node that set offsets by manually or automatic set from cutout areas to ensure fit within safe area.
+
 It's useful for build fullscreen mobile games or apps.
+
+## Features
+
+* Manually set offsets
+* Automaic set from cutout areas
+* External cutouts (version 1.2+)
+
+## Requirement
+
+No minimum yet, Might be in between Godot 4.x. But recommend Godot 4.5 (We only test latest Godot)
 
 ## Usage
 
-Just create Notchz as root node or add as a main UI. Or checkout Notchz Demo first at below
+Just create as a root node or add as a main UI.
 
 ## Notchz Demo
 
@@ -13,4 +24,4 @@ Just create Notchz as root node or add as a main UI. Or checkout Notchz Demo fir
 
 A app that test your phone's cutouts (Android only). [Click here](https://github.com/lunsokhasovan/Notchz/releases) to download.
 
-To test it, notice about dark green is cutouts area and make sure rotate phone if it's working. if doesn't, feel free to create issue.
+To test it, please note dark green is cutouts area then make sure rotate phone if it's working. if doesn't, feel free to create issue.
