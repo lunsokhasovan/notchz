@@ -2,16 +2,16 @@ name: "Godot debug exports"
 on: [push, pull_request, workflow_dispatch]
 
 env:
-  GODOT_VERSION: 4.5
+  GODOT_VERSION: 4.5.1
   EXPORT_NAME: Notchz
   PROJECT_PATH: .
 
 jobs:
   export-android:
     name: Android Export
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.5
+      image: barichello/godot-ci:4.5.1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
