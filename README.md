@@ -24,7 +24,7 @@ Just create as a root node or add as a main UI.
 
 <img width="1600" height="720" alt="image" src="https://github.com/user-attachments/assets/c14bc6e8-1afe-4130-b4e5-bbf5086bef17" />
 
-A app that test your phone's cutouts (Android only).[Click here](https://github.com/lunsokhasovan/Notchz/releases) to download.
+A app that test your phone's cutouts (Android only). [Click here](https://github.com/lunsokhasovan/Notchz/releases) to download.
 
 To test it, please note dark green is cutouts area then make sure rotate phone if it's working. if doesn't, feel free to create issue.
 
