@@ -3,10 +3,10 @@
 class_name Notchz
 extends Control
 
-## Safe area node and automatic set from cutouts
+## Safe area node
 ##
-## Is safe area node that set offsets by member or
-## automatic set from cutout areas to ensure fit within safe area. 
+## Is safe area node that set offsets by manually or
+## automatically to ensure fit within safe area or without cutout areas.
 ## It's useful for build fullscreen mobile games or apps.
 
 enum EXTERNAL_CUTOUTS_PROFILE {
@@ -16,11 +16,12 @@ enum EXTERNAL_CUTOUTS_PROFILE {
 }
 
 enum SET_FROM_CUTOUTS_MODE {
-	OFF, ## Never set by automatically
-	ONCE, ## Set once when node is ready
-	ALWAYS, ## Always set by automatically
+	OFF, ## Never set by automatically.
+	ONCE, ## Set once when node is ready.
+	ALWAYS, ## Always set by automatically.
 }
-## Set offsets from cutouts by mode.
+
+## Set mode for automatic set offsets from cutout areas.
 @export var set_from_cutouts: SET_FROM_CUTOUTS_MODE = 2:
 	set(x):
 		set_from_cutouts = x
@@ -29,7 +30,7 @@ enum SET_FROM_CUTOUTS_MODE {
 
 @export_group("Offsets")
 
-## Set left offset if more than automatic set from cutouts.
+## Set left offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
 var left: float = 0:
 	set(x):
@@ -37,7 +38,7 @@ var left: float = 0:
 		_curret_offsets[0] = left
 		refresh()
 
-## Set top offset if more than automatic set from cutouts.
+## Set top offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
 var top: float = 0:
 	set(x):
@@ -45,7 +46,7 @@ var top: float = 0:
 		_curret_offsets[1] = top
 		refresh()
 
-## Set right offset if more than automatic set from cutouts.
+## Set right offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
 var right: float = 0:
 	set(x):
@@ -53,7 +54,7 @@ var right: float = 0:
 		_curret_offsets[2] = right
 		refresh()
 
-## Set buttom offset if more than automatic set from cutouts.
+## Set buttom offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
 var buttom: float = 0:
 	set(x):
@@ -63,6 +64,7 @@ var buttom: float = 0:
 
 @export_group("External Cutouts")
 
+## Create virtual cutouts of choice for Notchz. Not for any other nodes.
 @export
 var external_cutouts_profile: EXTERNAL_CUTOUTS_PROFILE \
 	= EXTERNAL_CUTOUTS_PROFILE.NONE:
@@ -71,6 +73,7 @@ var external_cutouts_profile: EXTERNAL_CUTOUTS_PROFILE \
 		if is_node_ready():
 			refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
 
+## Create custom virtual cutouts for Notchz. Not for any other nodes.
 @export var custom_cutouts: Array[Rect2] = []
 
 var _curret_offsets: Array = [0, 0, 0, 0]:
@@ -104,14 +107,14 @@ func _process(delta: float) -> void:
 	if set_from_cutouts == SET_FROM_CUTOUTS_MODE.ALWAYS:
 		refresh(true)
 
-## Method for set offsets.
+## Method of setting offsets.
 func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	var new_offsets = [left, top, right, buttom]
 	var cutouts: Array[Rect2] = (
 		DisplayServer.get_display_cutouts()
 		+ custom_cutouts
-		+ get_external_cutout()
+		+ get_external_cutouts()
 	)
 	
 	if !Engine.is_editor_hint() and able_set_from_cutout:
@@ -155,7 +158,8 @@ func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	_curret_offsets = new_offsets
 	
-func get_external_cutout(
+## Return virtual cutouts' [Array][[Rect2]] for setting offsets.
+func get_external_cutouts(
 	profile: EXTERNAL_CUTOUTS_PROFILE = external_cutouts_profile
 ) -> Array[Rect2]:
 	match profile:
