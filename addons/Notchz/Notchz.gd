@@ -10,14 +10,15 @@ extends Control
 ## It's useful for build fullscreen mobile games or apps.
 
 enum EXTERNAL_CUTOUTS_PROFILE {
-	NONE,
-	TOP_NOTCH,
-	LEFT_SIDE_NOTCH,
+	NONE, ## No cutouts.
+	TOP_NOTCH, ## Top screen notch.
+	LEFT_SIDE_NOTCH, ## Left side screen notch.
+	LEFT_SIDE_CORNER_CUTOUT, ## Left side corner cutout.
 }
 
 enum SET_FROM_CUTOUTS_MODE {
 	OFF, ## Never set by automatically.
-	ONCE, ## Set once when node is ready.
+	ONCE, ## Set once when node start.
 	ALWAYS, ## Always set by automatically.
 }
 
@@ -162,9 +163,12 @@ func refresh(able_set_from_cutout: bool = false) -> void:
 func get_external_cutouts(
 	profile: EXTERNAL_CUTOUTS_PROFILE = external_cutouts_profile
 ) -> Array[Rect2]:
+	var notch_lenght: float = maxi(
+		DisplayServer.window_get_size().x,
+		DisplayServer.window_get_size().y,
+	) / 20
 	match profile:
 		EXTERNAL_CUTOUTS_PROFILE.TOP_NOTCH:
-			var notch_lenght: float = DisplayServer.window_get_size().y / 20
 			return [Rect2(
 				# Position
 				Vector2(
@@ -175,7 +179,6 @@ func get_external_cutouts(
 				Vector2(notch_lenght * 3, notch_lenght)
 			)]
 		EXTERNAL_CUTOUTS_PROFILE.LEFT_SIDE_NOTCH:
-			var notch_lenght: float = DisplayServer.window_get_size().y / 20
 			return [Rect2(
 				# Position
 				Vector2(
@@ -184,6 +187,13 @@ func get_external_cutouts(
 				),
 				# Size
 				Vector2(notch_lenght, notch_lenght * 3)
+			)]
+		EXTERNAL_CUTOUTS_PROFILE.LEFT_SIDE_CORNER_CUTOUT:
+			return [Rect2(
+				# Position
+				Vector2(0, 0),
+				# Size
+				Vector2(notch_lenght, notch_lenght)
 			)]
 		_:
 			return []
