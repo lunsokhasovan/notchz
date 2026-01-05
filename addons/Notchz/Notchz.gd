@@ -73,11 +73,6 @@ var external_cutouts_profile: EXTERNAL_CUTOUTS_PROFILE \
 
 @export var custom_cutouts: Array[Rect2] = []
 
-## Property for set base [Control]'s offsets.
-## Can set by contain [left, top, right, buttom].
-## @deprecated: It was to be private. Old property is unusable.
-@onready var curret_offsets: Array = [left, top, right, buttom]
-
 var _curret_offsets: Array = [0, 0, 0, 0]:
 	set(x):
 		_curret_offsets.resize(3)
