@@ -6,14 +6,14 @@ extends Control
 ## Safe area node
 ##
 ## Is safe area node that set offsets by manually or
-## automatically to ensure fit within safe area or without cutout areas.
+## automatically to ensure fit within safe area or without cutout areas. [br]
 ## It's useful for build fullscreen mobile games or apps.
 
 enum EXTERNAL_CUTOUTS_PROFILE {
 	NONE, ## No cutouts.
 	TOP_NOTCH, ## Top screen notch.
 	LEFT_SIDE_NOTCH, ## Left side screen notch.
-	LEFT_SIDE_CORNER_CUTOUT, ## Left side corner cutout.
+	LEFT_SIDE_CORNER_CUTOUT, ## Left side corner screen cutout.
 }
 
 enum SET_FROM_CUTOUTS_MODE {
@@ -109,6 +109,8 @@ func _process(delta: float) -> void:
 		refresh(true)
 
 ## Method of setting offsets.
+## It's used by [member set_from_cutouts].
+## Can use it rather than set mode of [member set_from_cutouts].
 func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	var new_offsets = [left, top, right, buttom]
@@ -159,7 +161,8 @@ func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	_curret_offsets = new_offsets
 	
-## Return virtual cutouts' [Array][[Rect2]] for setting offsets.
+## Return virtual cutouts' [Array][[Rect2]].
+## It's used by [member external_cutouts_profile].
 func get_external_cutouts(
 	profile: EXTERNAL_CUTOUTS_PROFILE = external_cutouts_profile
 ) -> Array[Rect2]:
