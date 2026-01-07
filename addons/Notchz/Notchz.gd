@@ -6,8 +6,10 @@ extends Control
 ## Safe area node
 ##
 ## Is safe area node that set offsets by manually or
-## automatically to ensure fit within safe area or without cutout areas. [br]
+## automatically to ensure fit within safe area or without cutout areas.
 ## It's useful for build fullscreen mobile games or apps.
+## [br][br]
+## To use it, just create as a root node or add as a main UI.
 
 enum EXTERNAL_CUTOUTS_PROFILE {
 	NONE, ## No cutouts.
@@ -23,11 +25,20 @@ enum SET_FROM_CUTOUTS_MODE {
 }
 
 ## Set mode for automatic set offsets from cutout areas.
-@export var set_from_cutouts: SET_FROM_CUTOUTS_MODE = 2:
+## @deprecated: It was renamed to [member set_from_cutouts_mode]. Use this instead.
+var set_from_cutouts: SET_FROM_CUTOUTS_MODE:
+	get():
+		return set_from_cutouts_mode
 	set(x):
-		set_from_cutouts = x
+		set_from_cutouts_mode = x
+		set_from_cutouts = set_from_cutouts_mode
+
+## Set mode for automatic set offsets from cutout areas.
+@export var set_from_cutouts_mode: SET_FROM_CUTOUTS_MODE = 2:
+	set(x):
+		set_from_cutouts_mode = x
 		if is_node_ready():
-			refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
+			refresh(set_from_cutouts_mode >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 @export_group("Offsets")
 
@@ -65,21 +76,21 @@ var buttom: float = 0:
 
 @export_group("External Cutouts")
 
-## Create virtual cutouts of choice for Notchz. Not for any other nodes.
+## Create virtual cutouts of choice for self. Not for any other nodes.
 @export
 var external_cutouts_profile: EXTERNAL_CUTOUTS_PROFILE \
 	= EXTERNAL_CUTOUTS_PROFILE.NONE:
 	set(x):
 		external_cutouts_profile = x
 		if is_node_ready():
-			refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
+			refresh(set_from_cutouts_mode >= SET_FROM_CUTOUTS_MODE.ONCE)
 
-## Create custom virtual cutouts for Notchz. Not for any other nodes.
+## Create custom virtual cutouts for self. Not for any other nodes.
 @export var custom_cutouts: Array[Rect2] = []
 
 ## Property for set base [Control]'s offsets.
 ## Can set by contain [left, top, right, buttom].
-## @deprecated: It was to be private. Old property is unusable.
+## @deprecated: It was private. This old property is unusable.
 @onready var curret_offsets: Array = [left, top, right, buttom]
 
 var _curret_offsets: Array = [0, 0, 0, 0]:
@@ -101,21 +112,21 @@ func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _ready() -> void:
-	refresh(set_from_cutouts >= SET_FROM_CUTOUTS_MODE.ONCE)
+	refresh(set_from_cutouts_mode >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warning = []
+	var warning: PackedStringArray
 	if get_parent() is Container:
 		warning.append("Self can't work with Container as parent")
 	return warning
 
 func _process(delta: float) -> void:
-	if set_from_cutouts == SET_FROM_CUTOUTS_MODE.ALWAYS:
+	if set_from_cutouts_mode == SET_FROM_CUTOUTS_MODE.ALWAYS:
 		refresh(true)
 
 ## Method of setting offsets.
-## It's used by [member set_from_cutouts].
-## Can use it rather than set mode of [member set_from_cutouts].
+## It's used by [member set_from_cutouts_mode].
+## Can use it rather than set mode of [member set_from_cutouts_mode].
 func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	var new_offsets = [left, top, right, buttom]
