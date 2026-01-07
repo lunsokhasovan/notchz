@@ -86,7 +86,11 @@ var external_cutouts_profile: EXTERNAL_CUTOUTS_PROFILE \
 			refresh(set_from_cutouts_mode >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 ## Create custom virtual cutouts for self. Not for any other nodes.
-@export var custom_cutouts: Array[Rect2] = []
+@export var custom_cutouts: Array[Rect2] = []:
+	set(x):
+		custom_cutouts = x
+		if is_node_ready():
+			refresh(set_from_cutouts_mode >= SET_FROM_CUTOUTS_MODE.ONCE)
 
 ## Property for set base [Control]'s offsets.
 ## Can set by contain [left, top, right, buttom].
