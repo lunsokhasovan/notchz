@@ -48,7 +48,8 @@ var left: float = 0:
 	set(x):
 		left = maxf(0, x)
 		_curret_offsets[0] = left
-		refresh()
+		if is_node_ready():
+			refresh()
 
 ## Set top offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
@@ -56,7 +57,8 @@ var top: float = 0:
 	set(x):
 		top = maxf(0, x)
 		_curret_offsets[1] = top
-		refresh()
+		if is_node_ready():
+			refresh()
 
 ## Set right offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
@@ -64,7 +66,8 @@ var right: float = 0:
 	set(x):
 		right = maxf(0, x)
 		_curret_offsets[2] = right
-		refresh()
+		if is_node_ready():
+			refresh()
 
 ## Set buttom offset if more than automatically set from cutout areas.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px")
@@ -72,7 +75,8 @@ var buttom: float = 0:
 	set(x):
 		buttom = maxf(0, x)
 		_curret_offsets[3] = buttom
-		refresh()
+		if is_node_ready():
+			refresh()
 
 @export_group("External Cutouts")
 
@@ -133,14 +137,16 @@ func _process(delta: float) -> void:
 ## Can use it rather than set mode of [member set_from_cutouts_mode].
 func refresh(able_set_from_cutout: bool = false) -> void:
 	
-	var new_offsets = [left, top, right, buttom]
-	var cutouts: Array[Rect2] = (
-		DisplayServer.get_display_cutouts()
-		+ custom_cutouts
-		+ get_external_cutouts()
-	)
+	var new_offsets := PackedFloat32Array([left, top, right, buttom])
 	
-	if !Engine.is_editor_hint() and able_set_from_cutout:
+	if not Engine.is_editor_hint() and able_set_from_cutout:
+		
+		var cutouts: Array[Rect2] = (
+			DisplayServer.get_display_cutouts()
+			+ custom_cutouts
+			+ get_external_cutouts()
+		)
+		
 		for cutout in cutouts:
 			# When screen is landscape and not for macOS
 			if _is_screen_landscape() and not (OS.get_name() == "macOS"):
