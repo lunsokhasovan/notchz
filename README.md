@@ -1,6 +1,6 @@
 # <img src="https://github.com/lunsokhasovan/Notchz/blob/main/addons/Notchz/Notchz.svg" alt="Repository Icon" style="width:30px;height:30px;"/> Notchz
 
-Is safe area node that set offsets by manually or automatically to ensure fit within safe area or without cutout areas.
+Is safe area node that feature seting offsets by manually or automatically to ensure fit within safe area or without cutout areas.
 
 It's useful for build fullscreen mobile games or apps.
 
