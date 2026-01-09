@@ -5,7 +5,7 @@ extends Control
 
 ## Safe area node
 ##
-## Is safe area node that set offsets by manually or
+## Is safe area node that feature setting offsets by manually or
 ## automatically to ensure fit within safe area or without cutout areas.
 ## It's useful for build fullscreen mobile games or apps.
 ## [br][br]
@@ -187,7 +187,7 @@ func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	_curret_offsets = new_offsets
 	
-## Return virtual cutouts' [Array][[Rect2]].
+## Return virtual cutouts.
 ## It's used by [member external_cutouts_profile].
 func get_external_cutouts(
 	profile: EXTERNAL_CUTOUTS_PROFILE = external_cutouts_profile
