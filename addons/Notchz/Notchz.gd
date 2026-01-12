@@ -132,7 +132,7 @@ func _process(delta: float) -> void:
 	if set_from_cutouts_mode == SET_FROM_CUTOUTS_MODE.ALWAYS:
 		refresh(true)
 
-## Method of setting offsets.
+## Reset offsets, include without cutout areas if [param true].
 ## It's used by [member set_from_cutouts_mode].
 ## Can use it rather than set mode of [member set_from_cutouts_mode].
 func refresh(able_set_from_cutout: bool = false) -> void:
@@ -187,7 +187,7 @@ func refresh(able_set_from_cutout: bool = false) -> void:
 	
 	_curret_offsets = new_offsets
 	
-## Return virtual cutouts.
+## Return virtual cutout's structure by choice.
 ## It's used by [member external_cutouts_profile].
 func get_external_cutouts(
 	profile: EXTERNAL_CUTOUTS_PROFILE = external_cutouts_profile
