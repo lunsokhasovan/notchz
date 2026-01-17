@@ -1,3 +1,6 @@
+# Copyright (c) 2025-2026 Lun Sokhasovan
+# This program is licensed under MIT License.
+
 @icon("./Notchz.svg")
 @tool
 class_name Notchz

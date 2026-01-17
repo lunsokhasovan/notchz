@@ -20,8 +20,6 @@ No minimum yet, Might be in between Godot 4.x. **But recommend Godot 4.5** (We o
 
 Just create as a root node or add as a main UI.
 
-If Notchz doesn't appear, [you need enable it in Plugins tab at Project Settings...](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html#enabling-a-plugin)
-
 ## Notchz Demo
 
 <img width="1600" height="720" alt="image" src="https://github.com/user-attachments/assets/c14bc6e8-1afe-4130-b4e5-bbf5086bef17" />
