@@ -16,6 +16,14 @@ No minimum yet, Might be in between Godot 4.x. **But recommend Godot 4.5** (We o
 
 (For using version 1.1 or older, you need fix by yourself)
 
+## Download
+
+To download from Github, go to [release page](https://github.com/lunsokhasovan/notchz/releases) then click `notchz-{version}.zip` file, you will recieve addon only inside ZIP.
+
+To download developing version, click Code button at top page and click Download ZIP button.
+
+If you want to download all source (include Notchz Demo's codes, even developing version), you need [clone with Git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+
 ## Usage
 
 Just create as a root node or add as a main UI.
