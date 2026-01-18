@@ -16,6 +16,12 @@ No minimum yet, Might be in between Godot 4.x. **But recommend Godot 4.5** (We o
 
 (For using version 1.1 or older, you need fix by yourself)
 
+## Download
+
+To download from Github, go to [release page](https://github.com/lunsokhasovan/notchz/releases) then click `notchz-{version}.zip` file, you will recieve addon only inside ZIP.
+
+If you want to download all source (include Notchz Demo's codes, even in developing), you need [clone with Git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+
 ## Usage
 
 Just create as a root node or add as a main UI.
@@ -32,4 +38,4 @@ To test it, make sure rotate phone if it's working. if doesn't, feel free to cre
 
 ## License
 
-**Notchz** (and **Notchz Demo**) is licensed under MIT License, you are freed to use, study, copy, modify for any purpose without restriction. Except attribution, make sure add license and copyright notice. [Click here](https://github.com/lunsokhasovan/notchz/blob/main/LICENSE) to learn more.
+**Notchz** (and **Notchz Demo**) is licensed under MIT License, you are freed to use, study, copy, modify for any purpose without restriction, as long as give credit. [Click here](https://github.com/lunsokhasovan/notchz/blob/main/LICENSE) to learn more.
